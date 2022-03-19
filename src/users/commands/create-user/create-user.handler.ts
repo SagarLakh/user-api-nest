@@ -6,11 +6,11 @@ import { CreateUserCommand } from "./create-user.command";
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
     constructor(
-        private userRepository : UserRepository
+        private userRepository : UserRepository,
     ) {}
 
     async execute(command: CreateUserCommand): Promise<any> {
-        throw new Error("Method not implemented.");
+        return this.userRepository.create(command.payload)
     }
 
 }

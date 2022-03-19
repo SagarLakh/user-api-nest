@@ -6,13 +6,11 @@ import { GetUserQuery } from "./get-user.query";
 export class GetUserHandler implements IQueryHandler<GetUserQuery> {
 
     constructor(
-        private userRepository : UserRepository
+        private userRepository : UserRepository,
     ) {}
 
     execute(query: GetUserQuery): Promise<any> {
-        throw new Error("Method not implemented.");
+        return this.userRepository.findById(query.id)
     }
-
-
 
 }

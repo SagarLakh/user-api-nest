@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateUserCommand } from './commands/create-user/create-user.command';
 import { GetUserQuery } from './queries/get-user/get-user.query';
@@ -16,27 +15,27 @@ export class UsersController {
   ) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.commandBus.execute(new CreateUserCommand(createUserDto))
+  async create(@Body() userDto: UserDto) {
+    return await this.commandBus.execute(new CreateUserCommand(userDto))
   }
 
   @Get()
-  findAll() {
-    return this.queryBus.execute(new ListUsersQuery())
+  async findAll() : Promise<UserDto[]> {
+    return await this.queryBus.execute(new ListUsersQuery())
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.queryBus.execute(new GetUserQuery(id))
+  async findOne(@Param('id') id: string) : Promise<UserDto> {
+    return await this.queryBus.execute(new GetUserQuery(id))
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.commandBus.execute(new UpdateUserCommand(id, updateUserDto))
+  async update(@Param('id') id: string, @Body() updateUserDto: UserDto) {
+    return await this.commandBus.execute(new UpdateUserCommand(id, updateUserDto))
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commandBus.execute(new DeleteUserCommand(id))
+  async remove(@Param('id') id: string) {
+    return await this.commandBus.execute(new DeleteUserCommand(id))
   }
 }

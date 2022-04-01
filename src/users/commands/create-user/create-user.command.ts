@@ -1,8 +1,8 @@
 import { ICommand } from "@nestjs/cqrs";
-import { CreateUserDto } from "src/users/dto/create-user.dto";
+import { UserDto } from "src/users/dto/user.dto";
 
 export class CreateUserCommand implements ICommand {
 
-    constructor(public payload : CreateUserDto) {}
+    constructor(public payload : UserDto) {}
 
 }

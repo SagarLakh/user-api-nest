@@ -1,24 +1,10 @@
-import { Column, Entity, PrimaryColumn } from "typeorm"
-
-@Entity("users")
-export class UserEntity {
-
-    @PrimaryColumn()
+export class UserDto {
+    
     username : string
-
-    @Column()
     name : string
-
-    @Column()
     surname : string
-
-    @Column({
-        unique : true
-    })
     email : string
-
-    @Column()
-    password : string
+    password? : string
 
     constructor(username: string, name: string, surname: string, email: string, password: string) {
         this.username = username
